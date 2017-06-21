@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Greennit.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Top Posts</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Content Type: @Html.DropDownList("articleType", "All")
+        Title: @Html.TextBox("SearchString")
+        <input type="submit" value="Filter" />
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+<table class="table">
+    @*<tr>
+        <th>
+            Ratings
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+    </tr>*@
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td class="ratingColumn">
+            @Html.ActionLink("+", "UpMain", new { id = item.ID }, new { @class = "btn btn-success", @style = "width: 34px; text-align: center; margin: auto 0" })
+            <div>@((item.UpVotes - item.DownVotes).ToString())</div>
+            @Html.ActionLink("-", "DownMain", new { id = item.ID }, new { @class = "btn btn-danger", @style = "width: 34px; text-align: center; margin: auto 0" })
+        </td>
+        <td>
+            @{
+                string imageUrl = "";
+                if (string.IsNullOrEmpty(item.Image))
+                {
+                    if (item.ContentTypeID == 1)
+                    {
+                        imageUrl = "https://img.youtube.com/vi/" + item.Video + "/mqdefault.jpg";
+                    }
+                    else
+                    {
+                        imageUrl = "/Resources/" + item.ContentTypeID + "Default.png";
+                    }
+                }
+                else
+                {
+                    imageUrl = item.Image;
+                }
+            }
+            <a href=@Url.Action("Details", new { id = item.ID }) style="">
+                <p style="height: 150px; width:150px; background-image: url('@Url.Content(imageUrl)'); background-size:cover; background-position:center;"></p>
+                @*<img src=@Url.Content(imageUrl) alt=@item.Title width="150" height="150" />*@
+            </a>
+        </td>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id = item.ID })
+            <br />
+            Posted By: @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>*@
+    </tr>
+}
+
+</table>

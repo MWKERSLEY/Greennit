@@ -1,0 +1,150 @@
+﻿@model Greennit.Models.Article
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Article</h4>
+        <hr />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContentTypeID, htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.ContentTypeID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@{List<string> dropdown = new List<string>() { "a","b","c","d"};
+                }*@
+                @*@Html.DropDownListFor(model => model.ContentType, new SelectList(dropdown, "CategoryId", "CategoryName"), "- Please Select -"))*@
+                @*@Html.DropDownListFor(model => model.ContentType,
+                  new SelectList(new[] { "Video", "Website", "Image", "Text" }),
+                  new { @class = "" })*@
+                @*@Html.DropDownListFor(n => n.MyColorId,
+                new SelectList(new List<Color> {
+                    new Color {
+                        ColorId = 1,
+                        Name = "Red"
+                    },
+                    new Color {
+                        ColorId = 2,
+                        Name = "Blue"
+                    }, "ColorId", "Name"))*@
+                
+                @*@Html.DropDownListFor(model => model.ContentType,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = "5" , Text = "Post Type" },
+                       new SelectListItem { Value = "Video" , Text = "Youtube Video" },
+                       new SelectListItem { Value = "0" , Text = "Option A" },
+                       new SelectListItem { Value = "1" , Text = "Option B" },
+                       new SelectListItem { Value = "2" , Text = "Option C" }
+                    },
+                  new { @class = "" })*@
+                @Html.DropDownListFor(model => model.ContentTypeID, new SelectList(ViewBag.articleTypeCreate, "ID", "ContentTypeString"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ContentTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="videoBox" class="form-group">
+            @Html.LabelFor(model => model.Video, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Video, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Video, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="websiteBox" class="form-group" style="display:none">
+            @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="imageBox" class="form-group" style="display:none">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="articleBox" class="form-group" style="display:none">
+            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        document.getElementById('ContentTypeID').addEventListener("change", changeIt);
+        function changeIt() {
+            console.log(this.value);
+            if (this.value == 1) {
+                document.getElementById('videoBox').style.display = "block";
+                document.getElementById('websiteBox').style.display = "none";
+                document.getElementById('imageBox').style.display = "none";
+                document.getElementById('articleBox').style.display = "none";
+            } else if (this.value == 2) {
+                document.getElementById('videoBox').style.display = "none";
+                document.getElementById('websiteBox').style.display = "block";
+                document.getElementById('imageBox').style.display = "none";
+                document.getElementById('articleBox').style.display = "none";
+            } else if (this.value == 3) {
+                document.getElementById('videoBox').style.display = "none";
+                document.getElementById('websiteBox').style.display = "none";
+                document.getElementById('imageBox').style.display = "block";
+                document.getElementById('articleBox').style.display = "none";
+            } else if (this.value == 4) {
+                document.getElementById('videoBox').style.display = "none";
+                document.getElementById('websiteBox').style.display = "none";
+                document.getElementById('imageBox').style.display = "none";
+                document.getElementById('articleBox').style.display = "block";
+            }
+        }
+    </script>
+}

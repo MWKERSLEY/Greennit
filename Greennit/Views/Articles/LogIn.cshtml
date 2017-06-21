@@ -1,0 +1,16 @@
+﻿@model Greennit.Models.Article
+
+@{
+    ViewBag.Title = "Log In";
+}
+
+<h2>@ViewBag.Message</h2>
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        Your Name: @Html.TextBox("user")
+        <input type="submit" value="Change Name" />
+    </p>
+}

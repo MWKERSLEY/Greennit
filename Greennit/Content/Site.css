@@ -1,6 +1,12 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #e8eff5 url("http://lea.verou.me/css3patterns/noise.png");
+}
+
+
+html {
+    background: #e8eff5 url("http://lea.verou.me/css3patterns/noise.png");
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +27,103 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.ratingColumn {
+    text-align:center;
+}
+.ratingDetails {
+    text-align:center;
+    padding-top:18px;
+}
+
+p select, p input, form p a  {
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+form p a {
+    padding: 8px 12px !important;
+}
+#textBox {
+    text-align:left;
+    white-space: pre-wrap;
+    padding:15px;
+    border: solid;
+    border-radius:5px;
+    margin: 5px;
+}
+#ImageView {
+    max-width:100%;
+    max-height:800px;
+    overflow: auto;
+}
+#WebsiteView {
+    max-width:100%;
+    overflow: hidden;
+}
+#websiteFrame {
+    -ms-zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.8);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.8);
+    -webkit-transform-origin: 0 0;
+    width: 125%;
+    /*height:800px;*/
+    display:none;
+}
+
+.commentOuter {
+    padding: 5px;
+    border: 5px solid;
+    text-align: left;
+    margin: 5px;
+    border-radius: 5px;
+    min-width: 100px;
+    padding-left:10px;
+    background-color:lightblue;
+    padding-right:2px;
+}
+
+.commentInner {
+    padding: 5px;
+    border: 5px solid;
+    border-radius: 5px;
+    min-width: 100px;
+    padding-left:10px;
+    padding-right:2px;
+    background-color:lightcyan;
+}
+
+.commentReplyBox {
+    /*display:none;*/
+}
+
+.replyLink {
+    cursor:pointer;
+}
+
+.commentText {
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 5px;
+    display:inline-block;
+    background-color:white;
+}
+
+.navbar {
+    background:lightblue url("http://lea.verou.me/css3patterns/noise.png");
 }

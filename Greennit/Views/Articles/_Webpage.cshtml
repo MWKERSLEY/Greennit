@@ -1,0 +1,26 @@
+﻿@model Greennit.Models.ArticleAndComments
+<h1>
+    <a href="@Url.Content(Model.Article.Website)" target="_blank">@Url.Content(Model.Article.Website)</a>
+</h1>
+@*<div id="WebsiteView">
+    <iframe id="websiteFrame" src="@Url.Content(Model.Website+"/?output=embed")"></iframe>
+</div>*@
+@*<div id="WebsiteView">
+    <iframe id="websiteFrame">testest</iframe>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    alert("1");
+    $('#test').exists
+    $(document).ready(function () {
+        alert("2");
+        $('#websiteFrame').on('load', (function () {
+            alert("3");
+            $('#websiteFrame').css("display", "block");
+            alert("4");
+            if ($("#websiteFrame").contents().is(':empty')) {
+                alert("5");
+            }
+        }));
+    });
+</script>*@

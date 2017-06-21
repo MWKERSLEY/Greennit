@@ -1,0 +1,114 @@
+namespace Greennit.Models
+{
+    using Foolproof;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
+    public partial class Article
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Article()
+        {
+            this.Comments = new HashSet<Comment>();
+            UpVotes = 0;
+            DownVotes = 0;
+            Author = "Anonymous";
+        }
+
+        public List<SelectListItem> ContentList { get; set; }
+
+        public int ID { get; set; }
+
+        [Display(Name = "Content Type")]
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
+        public string ContentType { get; set; }
+
+        [Display(Name = "Title")]
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
+        public string Title { get; set; }
+
+        [Display(Name = "Description")]
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
+        public string Description { get; set; }
+
+        [Display(Name = "Author")]
+        [StringLength(50, MinimumLength = 2)]
+        [DisplayFormat(NullDisplayText = "Anonymous")]
+        public string Author { get; set; }
+
+        [Display(Name = "Image URL")]
+        [DataType(DataType.ImageUrl)]
+        [DisplayFormat(NullDisplayText = "N/A")]
+        [RequiredIf("ContentType", "Image", ErrorMessage = "Please add an image URL")]
+        public string Image { get; set; }
+
+        [Display(Name = "Website URL")]
+        [StringLength(500, MinimumLength = 2)]
+        [DisplayFormat(NullDisplayText = "N/A")]
+        [Url]
+        [RequiredIf("ContentType", "Website", ErrorMessage = "Please add a webpage")]
+        public string Website { get; set; }
+
+        [Display(Name = "Youtube ID")]
+        [DisplayFormat(NullDisplayText = "N/A")]
+        [RegularExpression("([a-zA-Z0-9_-]{11})", ErrorMessage = "This is not a valid 11 character YouTube ID.")]
+        [RequiredIf("ContentType","Video", ErrorMessage = "Please add a YouTube ID")]
+        public string Video { get; set; }
+
+        [Display(Name = "Article")]
+        [DisplayFormat(NullDisplayText = "N/A")]
+        [DataType(DataType.MultilineText)]
+        [RequiredIf("ContentType", "Text", ErrorMessage = "Please add some text to your article!")]
+        public string Text { get; set; }
+
+        [Display(Name = "Article Up Votes")]
+        public Nullable<int> UpVotes { get; set; }
+
+        [Display(Name = "Article Down Votes")]
+        public Nullable<int> DownVotes { get; set; }
+        
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+    }
+}
+
+
+namespace Greennit.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Comment
+    {
+        public Comment()
+        {
+            this.UpVotes = 0;
+            this.DownVotes = 0;
+        }
+        public int ID { get; set; }
+        public int ArticleID { get; set; }
+        public Nullable<int> RepliesTo { get; set; }
+        [Display(Name = "Author")]
+        [StringLength(50, MinimumLength = 2)]
+        public string Author { get; set; }
+        [Display(Name = "Comment Text")]
+        [Required]
+        [StringLength(50, MinimumLength = 1)]
+        public string Text { get; set; }
+        [Display(Name = "Comment Up Votes")]
+        [StringLength(50, MinimumLength = 1)]
+        public Nullable<int> UpVotes { get; set; }
+        [Display(Name = "Comment Down Votes")]
+        [StringLength(50, MinimumLength = 1)]
+        public Nullable<int> DownVotes { get; set; }
+
+        public virtual Article Article { get; set; }
+    }
+}
+
