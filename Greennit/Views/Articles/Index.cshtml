@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Top Posts</h2>
-
+<div id="indexHeader">
+    <h1>Top Rated Posts</h1>
+</div>
 @using (Html.BeginForm())
 {
     <p>
@@ -60,17 +60,18 @@
                 }
             }
             <a href=@Url.Action("Details", new { id = item.ID }) style="">
-                <p style="height: 150px; width:150px; background-image: url('@Url.Content(imageUrl)'); background-size:cover; background-position:center;"></p>
+                <div style="height: 150px; width:150px; background-image: url('@Url.Content(imageUrl)'); background-size:cover; background-position:center;"></div>
                 @*<img src=@Url.Content(imageUrl) alt=@item.Title width="150" height="150" />*@
             </a>
         </td>
         <td>
-            @Html.ActionLink(item.Title, "Details", new { id = item.ID })
-            <br />
-            Posted By: @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            <div class="tableDetails">
+                @Html.ActionLink(item.Title, "Details", new { id = item.ID })
+                <hr />
+                @Html.DisplayFor(modelItem => item.Description)
+                <br />
+                Posted By: @Html.DisplayFor(modelItem => item.Author)
+            </div>
         </td>
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

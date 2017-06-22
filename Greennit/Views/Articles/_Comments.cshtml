@@ -49,8 +49,8 @@ foreach (var currentComment in replyList)
     }
     @displayComment(0)
     <div class="commentOuter">
-        <div class="commentInner">
-            <span>@ViewContext.RouteData.Values["user"]</span>
+        <div class="commentInner" id="innerNewComment">
+            <span>@ViewContext.RouteData.Values["user"]:</span>
             <a class="replyLink" id="showReply0" value="0">New Comment</a>
             <span class="commentReplyBox" style="display:none;" id="reply0">
                 @*@Html.Partial("_NewComment")*@
@@ -84,72 +84,3 @@ foreach (var currentComment in replyList)
             </script>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*@helper commentTree(List<Greennit.Models.Comment> comments, int previousCommentID)
-{
-    <div class="comment">
-        @while (Model.CommentsList.Count > 0 && previousCommentID==)
-        {
-            if (Model.CommentsList[0].RepliesTo == previousCommentID)
-            {
-                int thisCommentID = Model.CommentsList[0].ID;
-                Model.CommentsList.RemoveAt(0);
-                commentTree(Model.CommentsList, thisCommentID);
-            } else
-            {
-
-            }
-        }
-    </div>
-    }
-
-@{
-    int previousCommentID = 0;
-}
-@commentTree(Model.CommentsList, previousCommentID)*@
-
-@*@foreach (var comment in Model.CommentsList)
-{
-    @commentTree(Model.CommentsList)
-}*@

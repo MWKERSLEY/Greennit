@@ -1,12 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background: #e8eff5 url("http://lea.verou.me/css3patterns/noise.png");
+    background: rgba(150,181,102, 0.5) url("http://lea.verou.me/css3patterns/noise.png");
+    min-height:100vh;
 }
 
 
 html {
     background: #e8eff5 url("http://lea.verou.me/css3patterns/noise.png");
+    min-height:100vh;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -54,6 +56,7 @@ p select, p input, form p a  {
 }
 form p a {
     padding: 8px 12px !important;
+    display:inline-block;
 }
 #textBox {
     text-align:left;
@@ -86,25 +89,25 @@ form p a {
 }
 
 .commentOuter {
-    padding: 5px;
+    padding: 3px;
     border: 5px solid;
     text-align: left;
     margin: 5px;
     border-radius: 5px;
     min-width: 100px;
     padding-left:10px;
-    background-color:lightblue;
+    background-color:rgba(102,142,57, 0.4);
     padding-right:2px;
 }
 
 .commentInner {
-    padding: 5px;
+    padding: 2px;
     border: 5px solid;
     border-radius: 5px;
     min-width: 100px;
     padding-left:10px;
     padding-right:2px;
-    background-color:lightcyan;
+    background-color:rgb(208,226,100);
 }
 
 .commentReplyBox {
@@ -126,4 +129,101 @@ form p a {
 
 .navbar {
     background:lightblue url("http://lea.verou.me/css3patterns/noise.png");
+    background-color: rgb(102, 142, 57);
+}
+
+h1, h2, h3, h4, navbar {
+    font-weight: bold;
+    font-family: 'Patua One', cursive;
+    color: rgb(102, 142, 57);
+    text-shadow: 1px 1px 3px rgb(20,20,20);
+    font-size:3em;
+}
+
+body {
+    font-family: 'Catamaran', sans-serif;
+    font-size:1.6em;
+    color:black;
+}
+.navbar-brand {
+    color: rgb(245,255,151) !important;
+    text-shadow: 1px 1px 1px rgb(20,20,20);
+}
+.navbar-brand:hover {
+    color: rgb(50,50,50) !important;
+}
+.navbar-default .navbar-nav > li > a {
+    color: rgb(245,255,151);
+    text-shadow: 1px 1px 3px rgb(20,20,20);
+}
+div.navbar.navbar-default.navbar-fixed-top {
+    border-bottom: rgb(188,226,127) 2px solid;
+}
+td a {
+    font-size:1.3em;
+}
+form a, input, select, .replyLink, p a, #editBackToList a {
+    background-color:rgb(102,142,57) !important;
+    color:rgb(246,255,151) !important;
+    border: 1px rgb(188,226,127) solid !important;
+    text-shadow: 1px 1px 1px rgb(20,20,20);
+    vertical-align:middle;
+    padding: 3px 10px;
+    border-radius:5px;
+    display:inline-block;
+}
+form a:hover, input:hover, select:hover, .replyLink:hover, p a:hover, #editBackToList a:hover {
+    color:rgb(20,20,20) !important;
+    text-decoration:unset !important;
+}
+#showReply0 {
+    display:inline-block;
+    padding: 5px inherit;
+}
+#innerNewComment {
+    padding:7px;
+}
+#detailsHeader {
+    border: 5px solid;
+    margin: 5px -5px;
+    border-radius: 5px;
+    background-color:rgba(102,142,57, 0.2);
+}
+tr {
+    background-color:rgba(102,142,57, 0.2);
+    border: 3px solid black;
+    border-radius: 5px;
+    margin:5px auto;
+}
+tr a div {
+    border: 3px solid rgb(20,20,20);
+    border-radius: 15px;
+}
+.tableDetails {
+    margin: 0 5px 5px 5px;
+    padding:10px 15px 20px;
+    background-color:rgb(150,181,102);
+    border: 3px solid black;
+    border-radius: 5px;
+}
+.tableDetails a {
+    color:rgb(102,142,52);
+    text-shadow:1px 1px 1px black;
+    font-weight: bold;
+    font-size:2em;
+}
+.tableDetails a:hover {
+    text-decoration:unset;
+    color:rgb(246,255,151) !important;
+    text-shadow:1px 1px 6px black;
+}
+hr {
+    border-color:rgb(20,20,20);
+    margin:1px auto 5px;
+}
+#indexHeader {
+    font-size:1.5em;
+    text-shadow: 3px 3px 3px rgb(246,255,151) !important;
+    margin-bottom: 15px;
+    margin-top:-15px;
 }

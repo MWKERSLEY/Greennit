@@ -4,15 +4,15 @@
     ViewBag.Title = Model.Article.Title;
 }
 
-<div class="row">
-    <div class="col-xs-1">
+<div class="row" id="detailsHeader">
+    <div class="col-xs-2 col-sm-1">
         <div class="ratingDetails">
             @Html.ActionLink("+", "UpDetails", new { id = Model.Article.ID }, new { @class = "btn btn-success", @style = "width: 34px; text-align: center; margin: auto 0" })
             <div>@((Model.Article.UpVotes - Model.Article.DownVotes).ToString())</div>
             @Html.ActionLink("-", "DownDetails", new { id = Model.Article.ID }, new { @class = "btn btn-danger", @style = "width: 34px; text-align: center; margin: auto 0" })
         </div>
     </div>
-    <div class="col-xs-11">
+    <div class="col-xs-9">
         <h1>@Html.DisplayFor(model => Model.Article.Title)</h1>
         @Html.DisplayFor(model => Model.Article.Description) - Posted by @Html.DisplayFor(model => Model.Article.Author)
         <p>
@@ -23,10 +23,11 @@
         </p>
     </div>
 </div>
+<br />
 <div class="row text-center">
     @Html.Partial("_" + Model.Article.ContentType.ContentTypeString)
 </div>
-<hr />
+<br />
 <div class="row text-center">
     @Html.Partial("_Comments")
     @*@{Html.RenderAction("_Comments", "Article", new {user = User });}*@
