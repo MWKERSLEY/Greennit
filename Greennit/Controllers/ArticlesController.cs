@@ -84,7 +84,7 @@ namespace Greennit.Controllers
             var articleAndComments = new ArticleAndComments { CommentsList = commentsList, Article = article, Comment = new Comment()};
 
             return View(articleAndComments);
-        }
+        } 
 
         // GET: Articles/Create
         public ActionResult Create(string user)
