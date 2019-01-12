@@ -14,12 +14,15 @@
     </div>
     <div class="col-xs-9">
         <h1>@Html.DisplayFor(model => Model.Article.Title)</h1>
-        @Html.DisplayFor(model => Model.Article.Description) - Posted by @Html.DisplayFor(model => Model.Article.Author)
+        <p>@Html.DisplayFor(model => Model.Article.Description) - Posted by @Html.DisplayFor(model => Model.Article.Author)</p>
         <p>
             @Html.ActionLink("Edit", "Edit", new { id = Model.Article.ID }) |
             @Html.ActionLink("Back to List", "Index") |
             @Html.ActionLink("Delete", "Delete", new { id = Model.Article.ID })
-            <span>@ViewBag.DeleteMessage</span>
+            <span>
+                @ViewBag.DeleteMessage
+                @ViewBag.EditMessage
+            </span>
         </p>
     </div>
 </div>

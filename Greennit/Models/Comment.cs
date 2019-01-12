@@ -20,19 +20,21 @@ namespace Greennit.Models
             this.UpVotes = 0;
             this.DownVotes = 0;
         }
-        [Required]
+        //[Required]
         [Display(Name = "Comment ID")]
         public int ID { get; set; }
-        [Display(Name = "Comment ArticleI D")]
+        [Display(Name = "Comment ArticleID")]
         public int ArticleID { get; set; }
         [Display(Name = "Comment Replies To")]
         public Nullable<int> RepliesTo { get; set; }
         [Display(Name = "Comment Author")]
         [StringLength(50, MinimumLength = 2)]
+        [RegularExpression(@"^[^\<\>]+$", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
         public string Author { get; set; }
         [Display(Name = "Comment Text")]
-        [Required]
-        [StringLength(500, MinimumLength = 1)]
+        [Required(ErrorMessage = "You must enter a comment!")]
+        [StringLength(500, MinimumLength = 1, ErrorMessage = "Your comment must be between 1 and 500 characters long!")]
+        [RegularExpression(@"^[^\<\>]+$", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
         public string Text { get; set; }
         [Display(Name = "Comment Up Votes")]
         public int UpVotes { get; set; }

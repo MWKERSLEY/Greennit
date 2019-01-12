@@ -1,7 +1,7 @@
 ﻿@model Greennit.Models.Article
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New Post";
 }
 
 <h2>Submit a new post</h2>
@@ -100,49 +100,47 @@
         <div id="articleBox" class="form-group" style="display:none">
             @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.Text, 10, 200, new { htmlAttributes = new { @class = "form-control" } })
+                <div>
+                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <p class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Submit" class="btn btn-default" />
-            </div>
+                |
+                <span id="createBackToList">
+                    @Html.ActionLink("Back to List", "Index")
+                </span>
+            </p>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         document.getElementById('ContentTypeID').addEventListener("change", changeIt);
         function changeIt() {
-            console.log(this.value);
+            //console.log(this.value);
+            var videoBox = document.getElementById('videoBox');
+            var websiteBox = document.getElementById('websiteBox');
+            var imageBox = document.getElementById('imageBox');
+            var articleBox = document.getElementById('articleBox');
+            videoBox.style.display = "none";
+            websiteBox.style.display = "none";
+            imageBox.style.display = "none";
+            articleBox.style.display = "none";
             if (this.value == 1) {
-                document.getElementById('videoBox').style.display = "block";
-                document.getElementById('websiteBox').style.display = "none";
-                document.getElementById('imageBox').style.display = "none";
-                document.getElementById('articleBox').style.display = "none";
+                videoBox.style.display = "block";
             } else if (this.value == 2) {
-                document.getElementById('videoBox').style.display = "none";
-                document.getElementById('websiteBox').style.display = "block";
-                document.getElementById('imageBox').style.display = "none";
-                document.getElementById('articleBox').style.display = "none";
+                websiteBox.style.display = "block";
             } else if (this.value == 3) {
-                document.getElementById('videoBox').style.display = "none";
-                document.getElementById('websiteBox').style.display = "none";
-                document.getElementById('imageBox').style.display = "block";
-                document.getElementById('articleBox').style.display = "none";
+                imageBox.style.display = "block";
             } else if (this.value == 4) {
-                document.getElementById('videoBox').style.display = "none";
-                document.getElementById('websiteBox').style.display = "none";
-                document.getElementById('imageBox').style.display = "none";
-                document.getElementById('articleBox').style.display = "block";
+                articleBox.style.display = "block";
             }
         }
     </script>

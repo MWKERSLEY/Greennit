@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Greennit.Models;
+using System.Text.RegularExpressions;
 
 namespace Greennit.Controllers
 {
@@ -56,7 +57,7 @@ namespace Greennit.Controllers
             return View(articles.ToList().OrderByDescending(o=>o.UpVotes).ToList().OrderByDescending(o=>(o.UpVotes - o.DownVotes)).ToList());
         }
         // GET: Articles/Details/5
-        public ActionResult Details(int? id, string user, string deleteMessage)
+        public ActionResult Details(int? id, string user, string deleteMessage, string editMessage)
         {
             if (id == null)
             {
@@ -70,6 +71,10 @@ namespace Greennit.Controllers
             if (deleteMessage == "failed")
             {
                 ViewBag.DeleteMessage = "This isn't yours to delete!";
+            }
+            if (editMessage == "failed")
+            {
+                ViewBag.DeleteMessage = "This isn't yours to edit!";
             }
             var commentsList = (from t in db.Comments
                             where t.ArticleID == article.ID
@@ -126,8 +131,17 @@ namespace Greennit.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.articleTypeCreate = db.ContentTypes.ToList();
-            return View(article);
+            //if allowed to edit
+            if ((user == article.Author) || string.IsNullOrWhiteSpace(article.Author) || article.Author == "Anonymous")
+            {
+                ViewBag.articleTypeCreate = db.ContentTypes.ToList();
+                return View(article);
+            }
+            //if not allowed to edit
+            return RedirectToAction("Details", new { id = article.ID, user = user, editMessage = "failed" });
+
+            //ViewBag.articleTypeCreate = db.ContentTypes.ToList();
+            //return View(article);
         }
 
         // POST: Articles/Edit/5
@@ -273,8 +287,12 @@ namespace Greennit.Controllers
         }
         
         [HttpPost, ActionName("LogIn")]
+        [ValidateInput(false)]
         public ActionResult LogInConfirmed(string user)
         {
+            Regex rgx = new Regex("[^a-zA-Z0-9]");
+            user = rgx.Replace(user, "");
+            user = user.Substring(0, Math.Min(50, user.Length));
             return RedirectToAction("Index", new { user = user });
         }
 
@@ -302,22 +320,46 @@ namespace Greennit.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Details(ArticleAndComments articleAndComments, string user)
         {
+            //var articleID = articleAndComments.Comment.ArticleID;
+            //articleAndComments.Article = db.Articles.Find(articleID);
+            //articleAndComments.Comment.Article = articleAndComments.Article;
+            //var commentsList = (from t in db.Comments
+            //                    where t.ArticleID == articleID
+            //                    orderby t.ArticleID
+            //                    select t).ToList().OrderBy(o => o.ID).ToList();
+            //articleAndComments.CommentsList = commentsList;
             if (ModelState.IsValid)
             {
                 if (string.IsNullOrWhiteSpace(articleAndComments.Comment.Author))
                 {
                     articleAndComments.Comment.Author = "Anonymous";
                 }
+                Regex rgx = new Regex("[^a-zA-Z0-9!£$€%^&*()-_+={[}]:;@'~#,|\\.?/ ¬`¦\"]");
+                articleAndComments.Comment.Text = rgx.Replace(articleAndComments.Comment.Text, "");
                 db.Comments.Add(articleAndComments.Comment);
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = articleAndComments.Comment.ArticleID, user = user, deleteMessage = "" });
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                                       .Where(y => y.Count > 0)
+                                       .ToList();
+                var tesat = 1;
+            }
 
-            return RedirectToAction("Details", new { id = articleAndComments.Comment.ArticleID, user = user, deleteMessage = "" });
-            //return View(articleAndComments);
+            //return RedirectToAction("Details", new { id = articleAndComments.Comment.ArticleID, user = user, deleteMessage = "" });
+
+            articleAndComments.CommentsList = (from t in db.Comments
+                                where t.ArticleID == articleAndComments.Comment.ArticleID
+                                orderby t.ArticleID
+                                select t).ToList().OrderBy(o => o.ID).ToList();
+            articleAndComments.Article = db.Articles.Find(articleAndComments.Comment.ArticleID);
+            return View(articleAndComments);
         }
 
         public ActionResult UpComment(int id, string user)

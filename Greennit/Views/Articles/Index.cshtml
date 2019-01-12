@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Greennit.Models.Article>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Top Posts";
 }
 <div id="indexHeader">
     <h1>Top Rated Posts</h1>
 </div>
 @using (Html.BeginForm())
 {
-    <p>
+    <p id="indexFilter">
         Content Type: @Html.DropDownList("articleType", "All")
         Title: @Html.TextBox("SearchString")
         <input type="submit" value="Filter" />

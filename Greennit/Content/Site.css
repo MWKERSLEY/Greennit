@@ -28,7 +28,7 @@ html {
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 500px;
 }
 
 .ratingColumn {
@@ -61,10 +61,21 @@ form p a {
 #textBox {
     text-align:left;
     white-space: pre-wrap;
-    padding:15px;
-    border: solid;
+    padding: 25px 30px;
     border-radius:5px;
     margin: 5px;
+    border: 5px solid;
+    background-color:rgb(208,226,100);
+    font-size: 1.2em;
+    font-weight:bold;
+}
+#textBoxOuter {
+    padding: 20px;
+    border: 5px solid;
+    text-align: left;
+    margin: 5px;
+    border-radius: 5px;
+    background-color:rgba(102,142,57, 0.4);
 }
 #ImageView {
     max-width:100%;
@@ -162,7 +173,7 @@ div.navbar.navbar-default.navbar-fixed-top {
 td a {
     font-size:1.3em;
 }
-form a, input, select, .replyLink, p a, #editBackToList a {
+form a, input, select, .replyLink, p a, #editBackToList a, textarea, option, #createBackToList a, #editBackToPost a {
     background-color:rgb(102,142,57) !important;
     color:rgb(246,255,151) !important;
     border: 1px rgb(188,226,127) solid !important;
@@ -172,7 +183,7 @@ form a, input, select, .replyLink, p a, #editBackToList a {
     border-radius:5px;
     display:inline-block;
 }
-form a:hover, input:hover, select:hover, .replyLink:hover, p a:hover, #editBackToList a:hover {
+form a:hover, input:hover, select:hover, .replyLink:hover, p a:hover, #editBackToList a:hover, textarea:hover, #createBackToList a:hover, #editBackToPost a:hover {
     color:rgb(20,20,20) !important;
     text-decoration:unset !important;
 }
@@ -226,4 +237,13 @@ hr {
     text-shadow: 3px 3px 3px rgb(246,255,151) !important;
     margin-bottom: 15px;
     margin-top:-15px;
+}
+label, address, #indexFilter, p {
+    color:rgb(246,255,151) !important;
+    text-shadow: 1px 1px 1px black;
+}
+/*To make sure long names are displayed in the nav bar in an acceptable fashion (max 50 char)*/
+.nav li {
+    max-width:300px;
+    max-height: 60px;
 }

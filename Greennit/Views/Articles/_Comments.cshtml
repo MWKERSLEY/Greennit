@@ -12,35 +12,48 @@ foreach (var currentComment in replyList)
             <span>@currentComment.Author:</span>
             <span class="commentText">@currentComment.Text</span>
             <a class="replyLink" id="showReply@(currentComment.ID)" value="@(currentComment.ID)">Reply</a>
-            <div class="commentReplyBox" style="display:none;" id="reply@(currentComment.ID)">
-                @*@Html.Partial("_NewComment")*@
-                @*@(Html.RenderAction("_NewComment", "Articles", new { repliesTo = currentComment.ID, articleID = currentComment.ArticleID }))*@
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <span class="form-horizontal">
-        @Html.EditorFor(model => model.Comment.Text, new { htmlAttributes = new { @class = "commentText form-control", @style = "display:inline-block" } })
-        <span class="hidden">
-            @Html.EditorFor(model => model.Comment.Author, new { htmlAttributes = new { @class = "commentAuthor form-control" } })
-            @Html.EditorFor(model => model.Comment.ArticleID, new { htmlAttributes = new { @class = "commentArticleID form-control" } })
-            @Html.EditorFor(model => model.Comment.RepliesTo, new { htmlAttributes = new { @class = "commentRepliesTo form-control" } })
-        </span>
-        <input style="display:inline-block" type="submit" value="Post" class="btn btn-default" />
-    </span>
-}
-            </div>
+			<div class="commentReplyBox" style="display:none;" id="reply@(currentComment.ID)">
+				@*@Html.Partial("_NewComment")*@
+				@*@(Html.RenderAction("_NewComment", "Articles", new { repliesTo = currentComment.ID, articleID = currentComment.ArticleID }))*@
+				@using (Html.BeginForm())
+				{
+					@Html.AntiForgeryToken()
+					@Html.ValidationSummary(true)
+					<span class="form-horizontal">
+						@Html.EditorFor(model => model.Comment.Text, new { htmlAttributes = new { @class = "commentText form-control", @style = "display:inline-block" } })
+						<span class="hidden">
+							@Html.EditorFor(model => model.Comment.Author, new { htmlAttributes = new { @class = "commentAuthor form-control" } })
+							@Html.EditorFor(model => model.Comment.ArticleID, new { htmlAttributes = new { @class = "commentArticleID form-control" } })
+							@Html.EditorFor(model => model.Comment.RepliesTo, new { htmlAttributes = new { @class = "commentRepliesTo form-control" } })
+
+							@{
+								for (int i = 0; i < Model.CommentsList.Count; i++)
+								{
+									@Html.HiddenFor(model => Model.CommentsList[i]);
+								}
+
+							}
+							@*@Html.HiddenFor(model => model.Article);*@
+						</span>
+						<input style="display:inline-block" type="submit" value="Post" class="btn btn-default" />
+					</span>
+					<div>
+						@Html.ValidationMessageFor(model => model.Comment.Text, "", new { @class = "text-danger" })
+					</div>
+				}
+			</div>
             <script>
                 document.getElementById("showReply@(currentComment.ID)").addEventListener("click", function () {
-                    if ($("#reply@(currentComment.ID)").css('display') == "none") {
+                        if ($("#reply@(currentComment.ID)").css('display') == "none") {
                         $(".commentReplyBox").css('display','none');
                         $("#reply@(currentComment.ID)").css('display', 'block');
                         $('.commentRepliesTo').val('@currentComment.ID');
                         $('.commentAuthor').val('@ViewContext.RouteData.Values["user"]');
                         $('.commentArticleID').val('@ViewContext.RouteData.Values["id"]');
-                    } else {
+                        } else {
                         $(".commentReplyBox").css('display', 'none');
-                    }
-                })
+                        }
+                    })
             </script>
         </div>
         @displayComment(currentComment.ID)
@@ -52,23 +65,29 @@ foreach (var currentComment in replyList)
         <div class="commentInner" id="innerNewComment">
             <span>@ViewContext.RouteData.Values["user"]:</span>
             <a class="replyLink" id="showReply0" value="0">New Comment</a>
-            <span class="commentReplyBox" style="display:none;" id="reply0">
-                @*@Html.Partial("_NewComment")*@
-                @*@{Html.RenderAction("_NewComment", "Articles", new { repliesTo = 0, articleID = Model.Article.ID });}*@
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <span class="form-horizontal">
-        @Html.EditorFor(model => model.Comment.Text, new { htmlAttributes = new { @class = "commentText form-control", @style = "display:inline-block" } })
-        <span class="hidden">
-            @Html.EditorFor(model => model.Comment.Author, new { htmlAttributes = new { @class = "commentAuthor form-control" } })
-            @Html.EditorFor(model => model.Comment.ArticleID, new { htmlAttributes = new { @class = "commentArticleID form-control" } })
-            @Html.EditorFor(model => model.Comment.RepliesTo, new { htmlAttributes = new { @class = "commentRepliesTo form-control" } })
-        </span>
-        <input style="display:inline-block" type="submit" value="Post" class="btn btn-default" />
-    </span>
-        }
-    </span>
+			<div class="commentReplyBox" style="display:none;" id="reply0">
+				@*@Html.Partial("_NewComment")*@
+				@*@{Html.RenderAction("_NewComment", "Articles", new { repliesTo = 0, articleID = Model.Article.ID });}*@
+				@using (Html.BeginForm())
+				{
+					@Html.AntiForgeryToken()
+					@Html.ValidationSummary(true)
+					<span class="form-horizontal">
+						@Html.EditorFor(model => model.Comment.Text, new { htmlAttributes = new { @class = "commentText form-control", @style = "display:inline-block" } })
+						<span class="hidden">
+							@Html.EditorFor(model => model.Comment.Author, new { htmlAttributes = new { @class = "commentAuthor form-control" } })
+							@Html.EditorFor(model => model.Comment.ArticleID, new { htmlAttributes = new { @class = "commentArticleID form-control" } })
+							@Html.EditorFor(model => model.Comment.RepliesTo, new { htmlAttributes = new { @class = "commentRepliesTo form-control" } })
+							@*@Html.HiddenFor(model => model.Article)
+							@Html.HiddenFor(model => model.CommentsList)*@
+						</span>
+						<input style="display:inline-block" type="submit" value="Post" class="btn btn-default" />
+					</span>
+					<div>
+						@Html.ValidationMessageFor(model => model.Comment.Text, "", new { @class = "text-danger" })
+					</div>
+				}
+			</div>
             <script>
                 document.getElementById("showReply0").addEventListener("click", function () {
                     if ($("#reply0").css('display') == "none") {
@@ -81,6 +100,8 @@ foreach (var currentComment in replyList)
                         $(".commentReplyBox").css('display', 'none');
                     }
                 })
+
+                    document.getElementById("reply0").style.display = "none";
             </script>
         </div>
     </div>

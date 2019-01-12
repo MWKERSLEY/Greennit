@@ -29,22 +29,24 @@ namespace Greennit.Models
 
         [Display(Name = "Content Type")]
         [Required]
-        //[StringLength(50, MinimumLength = 2)]
         public int ContentTypeID { get; set; }
 
         [Display(Name = "Title")]
         [Required]
         [StringLength(50, MinimumLength = 2)]
+        //[RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
         public string Title { get; set; }
 
         [Display(Name = "Description")]
         [Required]
         [StringLength(50, MinimumLength = 2)]
+        //[RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
         public string Description { get; set; }
 
         [Display(Name = "Post By")]
         [StringLength(50, MinimumLength = 2)]
         [DisplayFormat(NullDisplayText = "Anonymous")]
+        //[RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
         public string Author { get; set; }
 
         [Display(Name = "Image URL")]
@@ -69,6 +71,8 @@ namespace Greennit.Models
         [Display(Name = "Article")]
         [DisplayFormat(NullDisplayText = "N/A")]
         [DataType(DataType.MultilineText)]
+        //[RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
+        //[RegularExpression(@"^(*)(<[^>]+>)*", ErrorMessage = "Please do not use tag symbols! ('<' and '>')")]
         [RequiredIf("ContentTypeID", 4, ErrorMessage = "Please add some text to your article!")]
         public string Text { get; set; }
         public int UpVotes { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model Greennit.Models.Article
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit "+ @Model.Title;
 }
 
 <h2>Edit: @Model.Title</h2>
@@ -75,8 +75,10 @@
         <div id="articleBox" class="form-group">
             @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.Text,10, 200, new { htmlAttributes = new { @class = "form-control" } })
+                <div>
+                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -103,11 +105,15 @@
         </div>
     </div>
 }
-
-<div id="editBackToList">
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
+<p>
+    <span id="editBackToList">
+        @Html.ActionLink("Back to List", "Index")
+    </span>
+    |
+    <span id="editBackToPost">
+        @Html.ActionLink("Back to Post", "Details", new { id = Model.ID })
+    </span>
+</p>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">

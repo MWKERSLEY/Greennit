@@ -1,22 +1,31 @@
 ﻿@model Greennit.Models.ArticleAndComments
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete " + @Model.Article.Title+"?";
 }
 
 
 <h3>Are you sure you want to delete '@Model.Article.Title'?</h3>
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <p class="form-actions text-center">
+        <input type="submit" value="Delete" class="btn btn-default" />
+        |
+        <span id="editBackToList">
+            @Html.ActionLink("Back to List", "Index")
+        </span>
+        |
+        <span id="editBackToPost">
+            @Html.ActionLink("Back to Post", "Details", new { id = Model.Article.ID })
+        </span>
+    </p>
+}
+<br />
 <div>
     <div class="row text-center">
         @Html.Partial("_" + Model.Article.ContentType.ContentTypeString)
     </div>
-    <hr />
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
 </div>
